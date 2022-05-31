@@ -1,25 +1,33 @@
-# Cross Account CI/CD Pipeline
+# DevOps on a cloud-based platform: A Case Study with AWS
+- Continuous integration (CI) 
+    - Unit tests 
+    - Integration test 
+    - Regression test 
+    - API testing 
+- Continous delivery (CD)
+    - CodeDeploy 
+    - Deployment testing
+    - Manual and auto approval 
+- Cross account/environment 
+    - Further sepratation between development and production envionment
+    - Protect production environment
+    - For customer in another account
 
-Sometimes we need to run the Pipeline in an account, but deploy product into another account for
-
-- Further sepratation between development and production envionment
-- Protect production environment
-- For customer in another account
-
-This note follows the reference workshop here
-
-- **[aws-blog-ci-cd-pipeline-cross-account](https://aws.amazon.com/blogs/devops/building-a-ci-cd-pipeline-for-cross-account-deployment-of-an-aws-lambda-api-with-the-serverless-framework/)**
-- **[workshop-ci-cid-pipeline-cross-account](https://catalog.us-east-1.prod.workshops.aws/v2/workshops/00bc829e-fd7c-4204-9da1-faea3cf8bd88/)**
-
-Todo
-
-- Python CDK version
-- CloudFormation version
-- Roles and policies created with CloudFormation
+- Reference 
+    - [DevOps Software Testing](https://test.io/devops#:~:text=Software%20testing%20in%20the%20DevOps,needed%20on%20the%20staging%20server.)   
+    - **[aws-blog-ci-cd-pipeline-cross-account](https://aws.amazon.com/blogs/devops/building-a-ci-cd-pipeline-for-cross-account-deployment-of-an-aws-lambda-api-with-the-serverless-framework/)**
+    - **[workshop-ci-cid-pipeline-cross-account](https://catalog.us-east-1.prod.workshops.aws/v2/workshops/00bc829e-fd7c-4204-9da1-faea3cf8bd88/)**
 
 ## Architecture
-
+CI/CD pipeline architecture 
 ![cross_account_ci_cd_pipeline drawio (1)](https://user-images.githubusercontent.com/20411077/153972206-e9ed989b-78d4-43b8-8a07-48d282375f8d.png)
+
+CI/CD pipeline from AWS Console 
+<img width="1678" alt="Screen Shot 2022-05-31 at 09 54 32" src="https://user-images.githubusercontent.com/20411077/171084502-afb261b9-5649-4bb3-8033-5e26af8058d9.png">
+
+CI/CD pipeline from AWS Console 
+<img width="1678" alt="Screen Shot 2022-05-31 at 09 55 01" src="https://user-images.githubusercontent.com/20411077/171084539-f5a1ed62-aeef-467f-b650-f7793db5b712.png">
+
 
 ## Setup CDK project
 
