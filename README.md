@@ -1,5 +1,7 @@
 # Build a Basic CI/CD Pipeline with CodePipeline
 
+![aws_devops-CdkPipelineFhr drawio](https://user-images.githubusercontent.com/20411077/176831848-b72a6d3c-8958-496c-a0ad-151f10a96c9d.png)
+
 ## Introduction
 
 1. SDLC [IEC 62304 SW for Medical Device](https://webstore.iec.ch/preview/info_iec62304%7Bed1.0%7Den_d.pdf)
