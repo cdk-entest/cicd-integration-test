@@ -9,5 +9,12 @@ const app = new cdk.App();
 // cicd pipeline stack
 new DevopsCicdPipelineStack(app, "DevopsCicdPipelineStack", {});
 
-// application stack
-new ApplicationStack(app, "ApplicationStack", {});
+// application preprod stack
+new ApplicationStack(app, "PreProdApplicationStack", {
+  environment: "PreProd",
+});
+
+// application prod stack
+new ApplicationStack(app, "ProApplicationStack", {
+  environment: "Prod",
+});

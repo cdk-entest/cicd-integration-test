@@ -9,6 +9,14 @@ def handler(event, context):
     """
     lambda handler
     """
-    return json.dumps({
-        "message": "Hello Swin Devops"
-    })
+    return {
+        'statusCode': 200,
+        'headers': {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type",
+            "Access-Control-Allow-Methods": "OPTIONS,GET"
+        },
+        'body': json.dumps({
+            'message': "Hello Swinburne DevOps"
+        })
+    }
