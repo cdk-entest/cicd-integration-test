@@ -200,8 +200,8 @@ export class CicdPipelineStack extends Stack {
       });
 
     // pipeline
-    const pipeline = new aws_codepipeline.Pipeline(this, "DevOpsDemoPipeline", {
-      pipelineName: "DevOpsDemoPipeline",
+    const pipeline = new aws_codepipeline.Pipeline(this, "CicdPipelineDemo", {
+      pipelineName: "CicdPipelineDemo",
       crossAccountKeys: false,
       stages: [
         {
