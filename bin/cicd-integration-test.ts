@@ -6,7 +6,7 @@ import { ApplicationStack } from "../lib/application-stack";
 const app = new cdk.App();
 
 // cicd pipeline stack
-new CicdPipelineStack(app, "DevopsCicdPipelineStack", {
+new CicdPipelineStack(app, "CicdPipelineStack", {
   codeStarId: "475216ac-d91d-40c7-827d-c0da1c714f10",
 });
 
