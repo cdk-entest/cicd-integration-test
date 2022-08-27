@@ -10,8 +10,12 @@ import {
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
-export class DevopsCicdPipelineStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
+interface CicdPipelineProps extends StackProps {
+  codeStarArn: string;
+}
+
+export class CicdPipelineStack extends Stack {
+  constructor(scope: Construct, id: string, props: CicdPipelineProps) {
     super(scope, id, props);
 
     // source code - code commit
@@ -130,13 +134,24 @@ export class DevopsCicdPipelineStack extends Stack {
     const preProdOutput = new aws_codepipeline.Artifact("PreProductOutput");
 
     // source action
-    const sourceAction = new aws_codepipeline_actions.CodeCommitSourceAction({
-      actionName: "CodeCommit",
-      repository: repo,
-      branch: "master",
-      output: sourceOutput,
-      variablesNamespace: "SourceVariables",
-    });
+    // const sourceAction = new aws_codepipeline_actions.CodeCommitSourceAction({
+    //   actionName: "CodeCommit",
+    //   repository: repo,
+    //   branch: "master",
+    //   output: sourceOutput,
+    //   variablesNamespace: "SourceVariables",
+    // });
+
+    // github source
+    const sourceAction =
+      new aws_codepipeline_actions.CodeStarConnectionsSourceAction({
+        actionName: "GitHub",
+        owner: "entest-hai",
+        connectionArn: props.codeStarArn,
+        repo: "cicd-integration-test",
+        branch: "master",
+        output: sourceOutput,
+      });
 
     // build action
     const unittestBuildAction = new aws_codepipeline_actions.CodeBuildAction({

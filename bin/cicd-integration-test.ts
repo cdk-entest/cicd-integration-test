@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
-import { DevopsCicdPipelineStack } from "../lib/devops-cicd-pipeline-stack";
+import { CicdPipelineStack } from "../lib/pipeline-stack";
 import { ApplicationStack } from "../lib/application-stack";
 
 const app = new cdk.App();
 
 // cicd pipeline stack
-new DevopsCicdPipelineStack(app, "DevopsCicdPipelineStack", {});
+new CicdPipelineStack(app, "DevopsCicdPipelineStack", {
+  codeStarArn: "",
+});
 
 // application preprod stack
 new ApplicationStack(app, "PreProdApplicationStack", {

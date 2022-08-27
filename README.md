@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Build a Basic CI/CD Pipeline with CodePipeline
 
 ![aws_devops-CdkPipelineFhr drawio](https://user-images.githubusercontent.com/20411077/176831848-b72a6d3c-8958-496c-a0ad-151f10a96c9d.png)
@@ -235,3 +236,19 @@ We need to get the API endpoint from the deployed pre-production stack. This can
 
 
 
+=======
+# Welcome to your CDK TypeScript project
+
+This is a blank project for CDK development with TypeScript.
+
+The `cdk.json` file tells the CDK Toolkit how to execute your app.
+
+## Useful commands
+
+* `npm run build`   compile typescript to js
+* `npm run watch`   watch for changes and compile
+* `npm run test`    perform the jest unit tests
+* `cdk deploy`      deploy this stack to your default AWS account/region
+* `cdk diff`        compare deployed stack with current state
+* `cdk synth`       emits the synthesized CloudFormation template
+>>>>>>> d05d6e5 (Initial commit)
