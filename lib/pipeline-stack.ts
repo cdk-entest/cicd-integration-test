@@ -18,13 +18,6 @@ export class CicdPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props: CicdPipelineProps) {
     super(scope, id, props);
 
-    // source code - code commit
-    const repo = aws_codecommit.Repository.fromRepositoryName(
-      this,
-      "SwinDevOpsDemoRepo",
-      "SwinDevOpsDemoRepo"
-    );
-
     // codebuild unitest
     const unittestCodeBuild = new aws_codebuild.PipelineProject(
       this,

@@ -1,3 +1,11 @@
+---
+title: Build a CI/CD Pipeline with Integration Test
+description: Build a basic ci/cd pipeline with integration test
+author: haimtran
+publishedDate: 06/23/2022
+date: 2022-07-24
+---
+
 # Basic CI/CD Pipeline with Integration Test
 
 ![aws_devops-CdkPipelineFhr drawio](https://user-images.githubusercontent.com/20411077/176831848-b72a6d3c-8958-496c-a0ad-151f10a96c9d.png)
@@ -6,19 +14,12 @@
 
 [GitHub](https://github.com/entest-hai/cicd-integration-test) this shows a basic examle of a ci/cd pipeline for a lambda api: codebuild for unittest, codebuild for integration test, codeploy for deploy the api stack. The api url is passed via system parameter store from deployed pre-product to the integration test.
 
-## Reference
-
-1. [Reinvent 2021: Across account CI/CD pipelines](https://www.youtube.com/watch?v=AF-pSRSGNks)
-2. [Enhanced CI/CD with AWS CDK CodePipeline](https://www.youtube.com/watch?v=1ps0Wh19MHQ)
-3. [Building a Cross account CI/CD Pipeline Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/00bc829e-fd7c-4204-9da1-faea3cf8bd88/en-US)
-
 ## Application Stack
 
 lambda function
 
 ```py
 import json
-
 
 def handler(event, context):
     """
@@ -38,34 +39,75 @@ def handler(event, context):
 
 ```
 
+application stack is a lambda backed api
+
 ```tsx
+export interface ApplicationProps extends StackProps {
+  environment: string;
+}
+
 export class ApplicationStack extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps) {
+  public readonly url: CfnOutput;
+
+  constructor(scope: Construct, id: string, props: ApplicationProps) {
     super(scope, id, props);
 
-    const fn = new aws_lambda.Function(this, "SwinLambda", {
-      functionName: "HelloSwinDevOps",
+    // lambda function
+    const fn = new aws_lambda.Function(this, "Lambda", {
+      functionName: `HelloPipeline${props.environment}`,
       runtime: aws_lambda.Runtime.PYTHON_3_8,
       timeout: Duration.seconds(10),
       code: aws_lambda.Code.fromAsset(path.join(__dirname, "../lambda/")),
       handler: "index.handler",
     });
+
+    // api gateway
+    const api = new aws_apigateway.RestApi(this, "ApiGwDemo", {
+      restApiName: `ApiGwDemo${props.environment}`,
+    });
+
+    // api resource
+    const resource = api.root.addResource("book");
+
+    // api method
+    resource.addMethod("GET", new aws_apigateway.LambdaIntegration(fn));
+
+    this.url = new CfnOutput(this, `Url${props.environment}`, {
+      description: "api url",
+      exportName: `Url${props.environment}`,
+      value: api.url,
+    });
   }
-}
 ```
 
-## Source Code
+## GitHub Connection
 
 ```tsx
-// source code - code commit
-const repo = aws_codecommit.Repository.fromRepositoryName(
-  this,
-  "SwinDevOpsDemoRepo",
-  "SwinDevOpsDemoRepo"
-);
+// github source
+const sourceAction =
+  new aws_codepipeline_actions.CodeStarConnectionsSourceAction({
+    actionName: "GitHub",
+    owner: "entest-hai",
+    connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`,
+    repo: "cicd-integration-test",
+    branch: "master",
+    output: sourceOutput,
+  });
 ```
 
-## CodeBuild for Unit Tests
+codecommmit connection
+
+```tsx
+const sourceAction = new aws_codepipeline_actions.CodeCommitSourceAction({
+  actionName: "CodeCommit",
+  repository: repo,
+  branch: "master",
+  output: sourceOutput,
+  variablesNamespace: "SourceVariables",
+});
+```
+
+## CodeBuild Unittest
 
 ```tsx
 // codebuild unitest
@@ -92,7 +134,7 @@ const unittestCodeBuild = new aws_codebuild.PipelineProject(
 );
 ```
 
-## CodeBuild to Build Application Stack
+## CodeBuild CDK Stacks
 
 ```tsx
 // codebuild cdk template
@@ -118,7 +160,7 @@ const cdkCodeBuild = new aws_codebuild.PipelineProject(this, "CodeBuildCdk", {
 });
 ```
 
-## CodeDeploy to Deploy the Application Stack - Pre Product
+## CodeDeploy Preproduct
 
 ```tsx
 {
@@ -138,7 +180,7 @@ const cdkCodeBuild = new aws_codebuild.PipelineProject(this, "CodeBuildCdk", {
 },
 ```
 
-## CoceBuild for Integration Test
+## CoceBuild Integration Test
 
 We need to get the API endpoint from the deployed pre-production stack. This can be done by several ways such as aws cloudformation describe stacks or boto3 python code.
 
@@ -172,7 +214,7 @@ const integtestCodeBuild = new aws_codebuild.PipelineProject(
 );
 ```
 
-## CodeDeploy Deploy Product
+## CodeDeploy Product
 
 ```tsx
 // deploy preprod
@@ -237,17 +279,8 @@ const pipeline = new aws_codepipeline.Pipeline(this, "DevOpsDemoPipeline", {
 });
 ```
 
-# Welcome to your CDK TypeScript project
+## Reference
 
-This is a blank project for CDK development with TypeScript.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-## Useful commands
-
-- `npm run build` compile typescript to js
-- `npm run watch` watch for changes and compile
-- `npm run test` perform the jest unit tests
-- `cdk deploy` deploy this stack to your default AWS account/region
-- `cdk diff` compare deployed stack with current state
-- `cdk synth` emits the synthesized CloudFormation template
+1. [Reinvent 2021: Across account CI/CD pipelines](https://www.youtube.com/watch?v=AF-pSRSGNks)
+2. [Enhanced CI/CD with AWS CDK CodePipeline](https://www.youtube.com/watch?v=1ps0Wh19MHQ)
+3. [Building a Cross account CI/CD Pipeline Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/00bc829e-fd7c-4204-9da1-faea3cf8bd88/en-US)
