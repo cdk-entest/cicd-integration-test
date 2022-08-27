@@ -1,4 +1,4 @@
-# Build a Basic CI/CD Pipeline with CodePipeline
+# Basic CI/CD Pipeline with Integration Test
 
 ![aws_devops-CdkPipelineFhr drawio](https://user-images.githubusercontent.com/20411077/176831848-b72a6d3c-8958-496c-a0ad-151f10a96c9d.png)
 
