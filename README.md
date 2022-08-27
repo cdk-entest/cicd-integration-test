@@ -4,24 +4,7 @@
 
 ## Introduction
 
-1. SDLC [IEC 62304 SW for Medical Device](https://webstore.iec.ch/preview/info_iec62304%7Bed1.0%7Den_d.pdf)
-
-2. What is AWS CI/CD? [HERE](https://docs.aws.amazon.com/codepipeline/latest/userguide/concepts-continuous-delivery-integration.html)
-
-- [Continuous Delivery](https://aws.amazon.com/devops/continuous-delivery/)
-  - load testing, integration testing, API reliability testing
-  - least downtime deployment
-- [Continous Integration](https://aws.amazon.com/devops/continuous-integration/)
-  - merge code
-  - version control
-
-3. What use cases?
-
-- [Backend APIs CI/CD Pipeline](https://github.com/entest-hai/devops-mentor-talk)
-- [Web/Mobile App CI/CD Pipeline](https://catalog.us-east-1.prod.workshops.aws/workshops/cc4e013e-6779-4574-9672-ff201b76282d/en-US/architecture)
-- [Machine Learning CI/CD Pipeline](https://github.com/entest-hai/hello-sagemaker-pipeline)
-
-4. How to implement CI/CD?
+[GitHub](https://github.com/entest-hai/cicd-integration-test) this shows a basic examle of a ci/cd pipeline for a lambda api: codebuild for unittest, codebuild for integration test, codeploy for deploy the api stack. The api url is passed via system parameter store from deployed pre-product to the integration test.
 
 ## Reference
 
