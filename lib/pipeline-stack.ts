@@ -1,6 +1,5 @@
 import {
   aws_codebuild,
-  aws_codecommit,
   aws_codepipeline,
   aws_codepipeline_actions,
   aws_iam,
@@ -176,9 +175,9 @@ export class CicdPipelineStack extends Stack {
         ),
         stackName: "PreProdApplicationStack",
         adminPermissions: true,
-        variablesNamespace: "PreProdVariables",
-        outputFileName: "PreProdOutputs",
-        output: preProdOutput,
+        // variablesNamespace: "PreProdVariables",
+        // outputFileName: "PreProdOutputs",
+        // output: preProdOutput,
       });
 
     // build action
