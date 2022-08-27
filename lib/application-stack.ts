@@ -21,7 +21,7 @@ export class ApplicationStack extends Stack {
 
     // lambda function
     const fn = new aws_lambda.Function(this, "Lambda", {
-      functionName: `HelloDevOps${props.environment}`,
+      functionName: `HelloPipeline${props.environment}`,
       runtime: aws_lambda.Runtime.PYTHON_3_8,
       timeout: Duration.seconds(10),
       code: aws_lambda.Code.fromAsset(path.join(__dirname, "../lambda/")),

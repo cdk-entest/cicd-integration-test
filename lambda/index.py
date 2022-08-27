@@ -17,6 +17,6 @@ def handler(event, context):
             "Access-Control-Allow-Methods": "OPTIONS,GET"
         },
         'body': json.dumps({
-            'message': "Hello Swinburne DevOps"
+            'message': f"{event}"
         })
     }
