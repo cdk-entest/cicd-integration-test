@@ -11,7 +11,7 @@ import {
 import { Construct } from "constructs";
 
 interface CicdPipelineProps extends StackProps {
-  codeStarArn: string;
+  codeStarId: string;
 }
 
 export class CicdPipelineStack extends Stack {
@@ -147,7 +147,7 @@ export class CicdPipelineStack extends Stack {
       new aws_codepipeline_actions.CodeStarConnectionsSourceAction({
         actionName: "GitHub",
         owner: "entest-hai",
-        connectionArn: props.codeStarArn,
+        connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`,
         repo: "cicd-integration-test",
         branch: "master",
         output: sourceOutput,
