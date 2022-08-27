@@ -279,6 +279,58 @@ const pipeline = new aws_codepipeline.Pipeline(this, "DevOpsDemoPipeline", {
 });
 ```
 
+## Integration Test
+
+option 1) using boto3 to query api url from the PreProdApplication stack. option 2) codebuild run a cli command to query the api url
+
+```bash
+`SERVICE_URL=$(aws cloudformation describe-stacks --stack-name PreProdApplicationStack --query "Stacks[0].Outputs[?OutputKey=='UrlPreProd'].OutputValue" --output text)`
+```
+
+```py
+
+import boto3
+import requests
+
+STACK_NAME = "PreProdApplicationStack"
+ENDPOINT = "book"
+
+def query_api_url(stack_name):
+    """
+    query api url from cloudformation template output
+    """
+
+    # cloudformation client
+    client = boto3.client('cloudformation')
+    # query application stack
+    resp = client.describe_stacks(
+        StackName=stack_name
+    )
+    # looking for api url in stack output
+    stack_outputs = resp['Stacks'][0]['Outputs']
+    for output in stack_outputs:
+        if output['OutputKey'] == 'UrlPreProd':
+            api_url = output['OutputValue']
+            print(f"api url: {api_url}")
+    # return api url
+    return api_url
+```
+
+then perform a simple test to assert status code 200
+
+```py
+def test_200_response():
+    # get api url
+    api_url = query_api_url(STACK_NAME)
+    # send request
+    with requests.get(f"{api_url}/{ENDPOINT}") as response:
+        print(response.text)
+        assert response.status_code == 200
+#
+if __name__=="__main__":
+    test_200_response()
+```
+
 ## Reference
 
 1. [Reinvent 2021: Across account CI/CD pipelines](https://www.youtube.com/watch?v=AF-pSRSGNks)

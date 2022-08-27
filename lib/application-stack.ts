@@ -8,6 +8,7 @@ import {
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as path from "path";
+import * as fs from "fs";
 
 export interface ApplicationProps extends StackProps {
   environment: string;
@@ -24,7 +25,11 @@ export class ApplicationStack extends Stack {
       functionName: `HelloPipeline${props.environment}`,
       runtime: aws_lambda.Runtime.PYTHON_3_8,
       timeout: Duration.seconds(10),
-      code: aws_lambda.Code.fromAsset(path.join(__dirname, "../lambda/")),
+      code: aws_lambda.Code.fromInline(
+        fs.readFileSync(path.resolve(__dirname, "./../lambda/index.py"), {
+          encoding: "utf-8",
+        })
+      ),
       handler: "index.handler",
     });
 
