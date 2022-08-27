@@ -1,0 +1,35 @@
+[project]
+name = 'mxnet-mnist-lambda'
+description = 'deploy a mxnet nn model using lambda'
+authors = [
+{name = "haimtran"}
+]
+
+[tool.pyright]
+exclude = ["**/node_modules",
+    "**/__pycache__",
+]
+
+[tool.black]
+line-length = 70
+target-version = ['py37']
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = """
+    too-many-arguments,
+    not-callable,
+    invalid-name,
+    C0114,
+    C0115,
+    C0116
+"""
+
+[tool.pydocstyle]
+ignore = """
+    D100,
+    D101,
+    D102,
+    D103
+"""
+
+

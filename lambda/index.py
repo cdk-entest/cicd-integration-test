@@ -1,5 +1,5 @@
 """
-simple lambda 
+simple lambda
 """
 
 import json

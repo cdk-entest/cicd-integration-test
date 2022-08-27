@@ -3,7 +3,7 @@ unitest using pytest
 """
 
 
-def test_fhr():
+def test_lambda_logic():
     """
     some tests here
     """
