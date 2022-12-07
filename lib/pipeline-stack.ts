@@ -47,7 +47,7 @@ export class CicdPipelineStack extends Stack {
 
     // role for integration test
     const role = new aws_iam.Role(this, "RoleForIntegerationTest", {
-      roleName: "RoleForIntegrationTest",
+      roleName: "RoleForIntegrationTestDev",
       assumedBy: new aws_iam.ServicePrincipal("codebuild.amazonaws.com"),
     });
 
@@ -194,7 +194,7 @@ export class CicdPipelineStack extends Stack {
         templatePath: cdkBuildOutput.atPath(
           "ProApplicationStack.template.json"
         ),
-        stackName: "ProApplicationStack",
+        stackName: "ProApplicationStackDev",
         adminPermissions: true,
       });
 
