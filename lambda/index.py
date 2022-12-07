@@ -1,5 +1,6 @@
 """
 simple lambda
+
 """
 
 import json
@@ -17,6 +18,7 @@ def handler(event, context):
             "Access-Control-Allow-Methods": "OPTIONS,GET"
         },
         'body': json.dumps({
-            'message': f"{event}"
+            'message': f"{event}",
+            "name": "dat and tho and khoi and dung"
         })
     }
