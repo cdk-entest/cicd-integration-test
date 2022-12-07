@@ -16,6 +16,6 @@ new ApplicationStack(app, "PreProdApplicationStack", {
 });
 
 // application prod stack
-new ApplicationStack(app, "ProApplicationStackDev", {
+new ApplicationStack(app, "ProApplicationStack", {
   environment: "Prod",
 });

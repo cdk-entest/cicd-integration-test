@@ -194,7 +194,7 @@ export class CicdPipelineStack extends Stack {
         templatePath: cdkBuildOutput.atPath(
           "ProApplicationStack.template.json"
         ),
-        stackName: "ProApplicationStackDev",
+        stackName: "ProApplicationStack",
         adminPermissions: true,
       });
 
