@@ -19,6 +19,6 @@ def handler(event, context):
         },
         'body': json.dumps({
             'message': f"{event}",
-            "name": "dat and tho and khoi and dung"
+            "name": "hello dung dat tho khoi and thank you"
         })
     }
