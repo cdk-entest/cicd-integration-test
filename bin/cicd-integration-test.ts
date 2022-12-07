@@ -7,7 +7,7 @@ const app = new cdk.App();
 
 // cicd pipeline stack
 new CicdPipelineStack(app, "CicdPipelineStack", {
-  codeStarId: "c2d66cef-cf82-4e77-a62d-a45ed0797539",
+  codeStarId: "8e417a13-4164-4ce4-b1bf-deb77c7c6018",
 });
 
 // application preprod stack

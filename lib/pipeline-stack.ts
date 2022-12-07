@@ -138,7 +138,7 @@ export class CicdPipelineStack extends Stack {
     const sourceAction =
       new aws_codepipeline_actions.CodeStarConnectionsSourceAction({
         actionName: "GitHub",
-        owner: "entest-hai",
+        owner: "cdk-entest",
         connectionArn: `arn:aws:codestar-connections:${this.region}:${this.account}:connection/${props.codeStarId}`,
         repo: "cicd-integration-test",
         branch: "master",
